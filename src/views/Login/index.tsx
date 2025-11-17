@@ -28,14 +28,11 @@ const Login = ({ onClose }: LoginProps) => {
 			return;
 		}
 		try {
-			setLoading(true);
 			await sendLoginCode(phoneNumber);
 			showToast(message.code_sent, 'success');
 		} catch (error) {
 			console.error(error);
 			showToast(message.send_code_failed, 'error');
-		} finally {
-			setLoading(false);
 		}
 	};
 
@@ -165,14 +162,14 @@ const Login = ({ onClose }: LoginProps) => {
 						</Link>
 					</div>
 
-					{/* 登录按钮 */}
-					<button
-						onClick={handleLogin}
-						disabled={loading}
-						className="w-[454px] h-16 bg-gradient-button rounded-xl text-text-white text-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
-					>
-						{loading ? message.logging_in : message.login}
-					</button>
+				{/* 登录按钮 */}
+				<button
+					onClick={handleLogin}
+					disabled={loading || !verificationCode}
+					className="w-[454px] h-16 bg-gradient-button rounded-xl text-text-white text-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+				>
+					{loading ? message.logging_in : message.login}
+				</button>
 				</div>
 
 				{/* 右边部分 */}

@@ -5,7 +5,8 @@ import logo2 from '@/assets/logo2.png';
 import LoginRight from '@/components/Auth/LoginRight';
 import PhoneInput from '@/components/Auth/PhoneInput';
 import VerificationCodeInput from '@/components/Auth/VerificationCodeInput';
-import { useNavigate, Link } from 'react-router-dom';
+import UsernameInput from '@/components/Auth/UsernameInput';
+import { useNavigate } from 'react-router-dom';
 import { sendRegisterCode, registerByPhone } from '@/api/auth';
 import { useToast } from '@/components/ui/toast';
 
@@ -17,6 +18,7 @@ const Register = ({ onClose }: RegisterProps) => {
 	const navigate = useNavigate();
 	const message = useIntlMessage();
 	const { showToast } = useToast();
+	const [username, setUsername] = useState('');
 	const [phoneNumber, setPhoneNumber] = useState('');
 	const [verificationCode, setVerificationCode] = useState('');
 	const [agreed, setAgreed] = useState(false);
@@ -28,19 +30,16 @@ const Register = ({ onClose }: RegisterProps) => {
 			return;
 		}
 		try {
-			setLoading(true);
 			await sendRegisterCode(phoneNumber);
 			showToast(message.code_sent, 'success');
 		} catch (error) {
 			console.error(error);
 			showToast(message.send_code_failed, 'error');
-		} finally {
-			setLoading(false);
 		}
 	};
 
 	const handleRegister = async () => {
-		if (!phoneNumber || !verificationCode) {
+		if (!username || !phoneNumber || !verificationCode) {
 			showToast(message.fill_all_fields, 'error');
 			return;
 		}
@@ -53,10 +52,10 @@ const Register = ({ onClose }: RegisterProps) => {
 			await registerByPhone({
 				phone: phoneNumber,
 				code: verificationCode,
-				name: phoneNumber, // 使用手机号作为用户名
+				name: username,
 			});
 			showToast(message.register_success, 'success');
-			navigate('/login');
+			navigate('/');
 		} catch (error) {
 			console.error(error);
 			showToast(message.register_failed, 'error');
@@ -91,6 +90,9 @@ const Register = ({ onClose }: RegisterProps) => {
 							{message.logo}
 						</p>
 					</div>
+
+					{/* 用户名输入 */}
+					<UsernameInput username={username} onUsernameChange={setUsername} />
 
 					{/* 手机号输入 */}
 					<PhoneInput
@@ -165,8 +167,8 @@ const Register = ({ onClose }: RegisterProps) => {
 					{/* 注册按钮 */}
 					<button
 						onClick={handleRegister}
-						disabled={loading}
-						className="w-[454px] h-16 bg-gradient-button rounded-xl text-text-white text-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50"
+						disabled={loading || !username || !verificationCode}
+						className="w-[454px] h-16 bg-gradient-button rounded-xl text-text-white text-lg font-medium hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
 					>
 						{loading ? message.registering : message.register}
 					</button>
