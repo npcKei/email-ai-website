@@ -1,0 +1,108 @@
+@import 'tailwindcss';
+
+@theme {
+	/* 主题色 */
+	--color-theme-primary: #58E2F7;
+
+	/* 文字颜色 */
+	--color-text-normal: #C5D0D6;
+	--color-text-placeholder: #60676C;
+	--color-text-white: #FFFFFF;
+
+	/* 背景色 */
+	--color-bg-dark: #12151B;
+	--color-bg-input: #292F3A;
+
+	/* 边框颜色 */
+	--color-border-default: #292F3A;
+
+	/* 状态颜色 */
+	--color-status-success: #47B0C2;
+	--color-status-error: #ef4444;
+
+	/* shadcn ui 原有颜色 */
+	--color-background: oklch(100% 0 0);
+	--color-foreground: oklch(20.172% 0.01696 265.755);
+	--color-muted: oklch(96.696% 0.001119 286.375);
+	--color-muted-foreground: oklch(54.009% 0.017513 256.019);
+	--color-primary: oklch(20.172% 0.01696 265.755);
+	--color-primary-foreground: oklch(98.04% 0.001119 286.375);
+	--color-accent: oklch(96.696% 0.001119 286.375);
+	--color-accent-foreground: oklch(20.172% 0.01696 265.755);
+	--color-destructive: oklch(62.8% 0.257 29.234);
+	--color-destructive-foreground: oklch(98.04% 0.001119 286.375);
+	--color-ring: oklch(71.541% 0.02584 257.419);
+}
+
+:root {
+	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	background-color: #000;
+	width: 100vw;
+	max-width: 100%;
+}
+
+@layer components {
+	.gradient-text {
+		background: -webkit-linear-gradient(0deg, #ffdb5c 0%, #58e2f7 100%);
+		-webkit-background-clip: text; /* apply background clip */
+		-webkit-text-fill-color: transparent;
+	}
+
+	.gradient-text2 {
+		background: linear-gradient(0deg, #58e2f7 27.4658203125%, #ffffff 100%);
+		-webkit-background-clip: text; /* apply background clip */
+		-webkit-text-fill-color: transparent;
+	}
+	.gradient-text3 {
+		background: linear-gradient(0deg, #ffdb5c 0%, #ffffff 100%);
+		-webkit-background-clip: text; /* apply background clip */
+		-webkit-text-fill-color: transparent;
+	}
+
+	.gradient-text4 {
+		background: linear-gradient(0deg, #58e2f7 0%, #ffdb5c 100%);
+		-webkit-background-clip: text; /* apply background clip */
+		-webkit-text-fill-color: transparent;
+	}
+
+	.gradient-bg-hover:hover {
+		background: linear-gradient(150deg, #101218, #262b36);
+	}
+	.gradient-border {
+		border-radius: 16px;
+		border: 1px solid;
+		border-color: rgba(255, 219, 92, 0.28);
+	}
+
+	.gradient-bg-login {
+		background: linear-gradient(90deg, #3cafce, #207795);
+	}
+
+	/* 渐变按钮背景 */
+	.bg-gradient-button {
+		background: linear-gradient(90deg, #3CAFCE, #207795);
+	}
+
+	/* Input placeholder 样式 - 使用 Tailwind 配置的颜色 */
+	input::placeholder {
+		color: #60676c; /* text-placeholder */
+		opacity: 1;
+	}
+
+	input::-webkit-input-placeholder {
+		color: #60676c; /* text-placeholder */
+		opacity: 1;
+	}
+
+	input::-moz-placeholder {
+		color: #60676c; /* text-placeholder */
+		opacity: 1;
+	}
+
+	input:-ms-input-placeholder {
+		color: #60676c; /* text-placeholder */
+		opacity: 1;
+	}
+}
